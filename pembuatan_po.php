@@ -76,7 +76,6 @@ body { font-family: 'Inter', sans-serif; }
                 <option <?= $k==0?'selected':'' ?>><?= $pr ?></option>
             <?php endforeach; ?>
         </select>
-        <i class="fa fa-chevron-down input-icon-right"></i>
     </div>
 </div>
 
