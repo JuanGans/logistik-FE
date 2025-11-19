@@ -40,22 +40,24 @@ $prDetail = [
 
 <body class="bg-slate-100 flex min-h-screen">
 
-    <!-- === SIDEBAR (dari bidding) === -->
+    <!-- === SIDEBAR === -->
     <?php include "partials/sidebar.php"; ?>
 
     <!-- === MAIN WRAPPER === -->
     <main class="flex-1 flex flex-col ml-64">
 
-        <!-- === HEADER (dari bidding) === -->
+        <!-- === HEADER === -->
         <?php include "partials/header.php"; ?>
 
-        <!-- === PAGE BODY === -->
+        <!-- === PAGE CONTENT === -->
         <div class="p-10 flex-1">
-            <div class="bg-white shadow-md rounded-xl p-8 border border-slate-200">
 
-                <h2 class="text-2xl font-semibold text-slate-800 mb-6">
-                    Persetujuan Purchase Request
-                </h2>
+            <!-- 🔥 H2 mengikuti style PR + menyesuaikan Divisi -->
+            <h2 class="text-lg font-semibold text-slate-700 mb-6 pb-2 border-b border-slate-300">
+                Persetujuan Purchase Request — <?= $prDetail['department'] ?>
+            </h2>
+
+            <div class="bg-white shadow-md rounded-xl p-8 border border-slate-200">
 
                 <!-- Dropdown Cari PR -->
                 <div class="mb-8">
@@ -70,7 +72,7 @@ $prDetail = [
                 <!-- BOX DETAIL -->
                 <div class="border border-slate-200 rounded-xl p-6">
 
-                    <h3 class="text-lg font-semibold text-slate-800 mb-4">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-4">
                         Detail <?= $prDetail['nomor'] ?>
                     </h3>
 

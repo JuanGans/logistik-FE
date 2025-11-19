@@ -15,7 +15,7 @@ $stats = [
         'label' => 'Purchase Request Baru',
         'value' => 12,
         'color' => 'bg-blue-100 text-blue-600',
-        'icon'  => 'fa-file-circle-plus'
+        'icon'  => 'fa-circle-plus'
     ],
     [
         'label' => 'PO Menunggu GR',

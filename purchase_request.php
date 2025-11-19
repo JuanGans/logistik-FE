@@ -41,9 +41,13 @@ $items = ['Bearing 6205 ZZ','Bearing 6302 RS','Cable NYA 1.5mm','Grease SKF','Se
 
         <!-- === PAGE CONTENT === -->
         <div class="p-10 flex-1">
-            <div class="bg-white p-8 shadow-md rounded-xl border border-slate-200">
 
-                <h2 class="text-2xl font-semibold text-slate-800 mb-8">Formulir Purchase Request (PR)</h2>
+            <!-- === H2 STYLE DIVISI === -->
+            <h2 class="text-md font-semibold text-slate-700 mb-6 pb-2 border-b border-slate-300">
+                Formulir Purchase Request (PR)
+            </h2>
+
+            <div class="bg-white p-8 shadow-md rounded-xl border border-slate-200">
 
                 <!-- TOP INFO GRID -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10 pb-6 border-b border-slate-200">

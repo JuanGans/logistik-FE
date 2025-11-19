@@ -1,5 +1,5 @@
 <?php
-// proses_bidding_pr.php (FINAL)
+// proses_bidding_pr.php (FINAL FIXED HEADER OUTSIDE CARD)
 
 // -----------------------------------------------------------
 // Dummy Data & Context
@@ -80,12 +80,15 @@ $currentPage = 'pr-bidding-page';
 
         <?php include 'partials/header.php'; ?>
 
+        <!-- PAGE CONTENT -->
         <div class="p-10 flex-1">
-            <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
 
-                <h2 class="text-2xl font-semibold text-slate-800 mb-3">
-                    Proses Bidding PR
-                </h2>
+            <!-- === H2 DI LUAR CARD (sesuai contoh Purchase Request) === -->
+            <h2 class="text-md font-semibold text-slate-700 mb-6 pb-2 border-b border-slate-300">
+                Proses Bidding Purchase Request
+            </h2>
+
+            <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
 
                 <p class="text-slate-600">
                     Item dari <strong class="text-slate-800"><?= $prNumberSelected ?></strong> yang disetujui:

@@ -38,7 +38,11 @@ $currentPage = 'departemen_divisi.php';
     <style>
         :root { --primary-color: #4e73df; --sidebar-bg: #2c3e50; }
         body { font-family: 'Inter', sans-serif; }
-        .main-content-wrapper { margin-left: 16rem; flex-grow: 1; display: flex; flex-direction: column; width: calc(100% - 16rem); min-height: 100vh; }
+
+        .custom-scrollbar-hide::-webkit-scrollbar { display: none; }
+        .custom-scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .main-content-wrapper { margin-left: 16rem; width: calc(100% - 16rem); min-height: 100vh; }
         .form-card { background: white; border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 1.5rem; }
         .form-title { color: #1e293b; font-size: 1.5rem; font-weight: 700; }
         .status-aktif { background-color: #d1fae5; color: #059669; padding: 2px 8px; border-radius: 9999px; font-size: .75rem; }
@@ -47,10 +51,8 @@ $currentPage = 'departemen_divisi.php';
 
 <body class="bg-slate-100">
 
-    <!-- 🔥 Sidebar sekarang dipanggil dari partial -->
-    <?php 
-        include 'partials/sidebar.php';
-    ?>
+    <!-- Sidebar -->
+    <?php include 'partials/sidebar.php'; ?>
 
     <div class="main-content-wrapper"> 
         
@@ -68,8 +70,8 @@ $currentPage = 'departemen_divisi.php';
                     <div class="flex items-center space-x-2 cursor-pointer">
                         <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold text-sm">JD</div>
                         <div class="text-right">
-                            <p class="text-sm font-medium text-slate-700 leading-none"><?php echo $headerUser['name']; ?></p>
-                            <p class="text-xs text-slate-500"><?php echo $headerUser['role']; ?></p>
+                            <p class="text-sm font-medium text-slate-700 leading-none"><?= $headerUser['name']; ?></p>
+                            <p class="text-xs text-slate-500"><?= $headerUser['role']; ?></p>
                         </div>
                     </div>
                 </div>
@@ -86,7 +88,7 @@ $currentPage = 'departemen_divisi.php';
                 </button>
             </div>
 
-            <!-- Inline Form (tidak saya ubah) -->
+            <!-- Inline Form -->
             <div class="form-card">
                 <form id="inline-form" onsubmit="event.preventDefault(); saveDepartment();">
                     <div class="grid grid-cols-3 gap-6">
@@ -112,8 +114,114 @@ $currentPage = 'departemen_divisi.php';
                 </form>
             </div>
 
-        </main>
+            <!-- ====================== TABEL DEPARTEMEN ====================== -->
+            <div class="bg-white rounded-xl shadow-md p-8 mt-8">
+                <h3 class="text-xl font-semibold text-slate-700 mb-4">Data Departemen</h3>
 
+                <!-- Search & Dropdown -->
+                <div class="flex justify-between items-center mb-4">
+                    <input type="text" placeholder="Cari Departemen..." class="py-2 px-3 border border-slate-300 rounded-md w-64">
+                    <select class="py-2 px-3 border border-slate-300 rounded-md">
+                        <option>Tampilkan 10</option>
+                        <option>Tampilkan 25</option>
+                    </select>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-slate-200">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Nama</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Jumlah Divisi</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Status</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-slate-500 uppercase">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-200 text-slate-700">
+                            <?php foreach ($departments as $d): ?>
+                            <tr>
+                                <td class="px-6 py-4 text-sm"><?= $d['id'] ?></td>
+                                <td class="px-6 py-4 text-sm font-medium"><?= $d['name'] ?></td>
+                                <td class="px-6 py-4 text-sm"><?= $d['division_count'] ?> Divisi</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <span class="status-aktif"><?= $d['status'] ?></span>
+                                </td>
+                                <td class="px-6 py-4 text-center space-x-2">
+                                    <button class="text-indigo-600"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 flex justify-between items-center text-sm text-slate-600">
+                    <div>Menampilkan 1 sampai 10 dari 10 data</div>
+                    <div class="space-x-1">
+                        <button class="px-3 py-1 border border-slate-300 rounded-md">Sebelumnya</button>
+                        <button class="px-3 py-1 border border-indigo-600 bg-indigo-600 text-white rounded-md">1</button>
+                        <button class="px-3 py-1 border border-slate-300 rounded-md">2</button>
+                        <button class="px-3 py-1 border border-slate-300 rounded-md">Selanjutnya</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====================== TABEL DIVISI ====================== -->
+            <div class="bg-white rounded-xl shadow-md p-8 mt-8">
+                <h3 class="text-xl font-semibold text-slate-700 mb-4">Data Divisi</h3>
+
+                <div class="flex justify-between items-center mb-4">
+                    <input type="text" placeholder="Cari Divisi..." class="py-2 px-3 border border-slate-300 rounded-md w-64">
+                    <select class="py-2 px-3 border border-slate-300 rounded-md">
+                        <option>Tampilkan 10</option>
+                        <option>Tampilkan 25</option>
+                    </select>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-slate-200">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">ID Divisi</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Departemen</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Nama Divisi</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Status</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-slate-500 uppercase">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-200 text-slate-700">
+                            <?php foreach ($divisions as $dv): ?>
+                            <tr>
+                                <td class="px-6 py-4 text-sm"><?= $dv['id'] ?></td>
+                                <td class="px-6 py-4 text-sm"><?= $dv['department_name'] ?></td>
+                                <td class="px-6 py-4 text-sm font-medium"><?= $dv['name'] ?></td>
+                                <td class="px-6 py-4 text-sm">
+                                    <span class="status-aktif"><?= $dv['status'] ?></span>
+                                </td>
+                                <td class="px-6 py-4 text-center space-x-2">
+                                    <button class="text-indigo-600"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 flex justify-between items-center text-sm text-slate-600">
+                    <div>Menampilkan 1 sampai 10 dari 10 data</div>
+                    <div class="space-x-1">
+                        <button class="px-3 py-1 border border-slate-300 rounded-md">Sebelumnya</button>
+                        <button class="px-3 py-1 border border-indigo-600 bg-indigo-600 text-white rounded-md">1</button>
+                        <button class="px-3 py-1 border border-slate-300 rounded-md">2</button>
+                        <button class="px-3 py-1 border border-slate-300 rounded-md">Selanjutnya</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
     </div>
 
     <script>
